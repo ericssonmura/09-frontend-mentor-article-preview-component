@@ -1,0 +1,437 @@
+/* @font-face {} */
+
+:root {
+  --very-dark-grayish-blue: hsl(217, 19%, 35%);
+  --desaturated-dark-blue: hsl(214, 17%, 51%);
+  --grayish-blue: hsl(212, 23%, 69%);
+  --light-grayish-blue: hsl(210, 46%, 95%);
+  --light-gray: hsl(0, 0%, 59%);
+  --pure-white: hsl(0, 0%, 100%);
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: var(--light-grayish-blue);
+  color: var(--very-dark-grayish-blue);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+a,
+a:visited,
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  max-inline-size: 100%;
+  block-size: auto;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 100vh;
+}
+
+.card {
+  inline-size: 20.4375rem;
+  background-color: var(--pure-white);
+  border-radius: 10px;
+  box-shadow: 0 40px 40px -10px hsl(210 29% 84% / 55%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.card__header {
+  flex-basis: 12.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.card__header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('images/drawers.jpg');
+  background-size: cover;
+  background-position: 0% 27%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.card:hover .card__header::before {
+  transform: scale(1.1);
+}
+
+.card__body {
+  padding: 2.25rem 2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card__body h1 {
+  font-size: 1rem;
+  color: hsl(217, 19%, 35%);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.card__body p {
+  margin-block-start: 0.75rem;
+  margin-block-end: 2rem;
+  font-size: 0.8125rem;
+  color: var(--desaturated-dark-blue);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.12px;
+}
+
+.card__body-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card__author-image {
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: 50%;
+}
+
+.card__author-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card__author-name {
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12px;
+}
+
+.card__author-name:hover,
+.card__author-name:focus-visible {
+  color: hsl(170, 32%, 36%);
+  outline: none;
+}
+
+.card__author-date {
+  color: var(--grayish-blue);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12px;
+}
+
+.card__arrow {
+  inline-size: 2rem;
+  block-size: 2rem;
+  margin-inline-start: auto;
+  background-color: var(--light-grayish-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card__arrow:hover {
+  background-color: var(--desaturated-dark-blue);
+}
+
+.card__arrow:hover .card__arrow-icon path {
+  fill: var(--pure-white);
+}
+
+.card__arrow-icon path {
+  transition: fill 0.4s ease;
+}
+
+.card__share {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  inline-size: 100%;
+  background-color: var(--very-dark-grayish-blue);
+  color: var(--pure-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 2rem;
+  border-radius: 0 0 10px 10px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(100%);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0s linear 0.3s;
+  z-index: 10;
+}
+
+.card__share.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0s linear 0s;
+}
+
+.card__share span {
+  color: var(--grayish-blue);
+  font-size: 0.8125rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.card__share a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__share a svg {
+  display: block;
+}
+
+.card__share-icon-facebook:hover path {
+  fill: hsl(217, 100%, 52%);
+}
+.card__share-icon-twitter:hover path {
+  fill: hsl(198, 88%, 62%);
+}
+.card__share-icon-pinterest:hover path {
+  fill: hsl(351, 100%, 45%);
+}
+
+.card__share .icon path {
+  transition: fill 0.4s ease;
+}
+
+.card__share .card__arrow {
+  background-color: var(--desaturated-dark-blue);
+}
+
+
+
+/* RESPONSIVE */
+@media screen and (min-width: 48em) {
+ 
+  .card {
+    width: 45.625rem;
+    flex-direction: row;
+    overflow: visible;
+  }
+
+  .card__header {
+    flex-basis: 17.8125rem;
+    overflow: hidden;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .card__header::before {
+    background-position: 0% 100%;
+  }
+
+  .card__header .card__header-banner { 
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: 0% 100%;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .card__body {
+    padding: 2rem 2.5rem;
+    flex-basis: 27.8125rem;
+    position: relative;
+    overflow: visible;
+  }
+
+  .card__body h1 {
+    font-size: 1.25rem;
+    letter-spacing: 0.25px;
+  }
+
+  .card__body p {
+    margin-block-end: 0.875rem;
+    line-height: 1.6;
+    letter-spacing: 0.2px;
+  }
+
+ .card__share {
+    position: absolute;
+    bottom: 5.75rem;
+    left: calc(100% - 56px);
+    transform: translateX(-50%) translateY(12px) scale(0.8);
+    transform-origin: bottom center;
+    inline-size: 15.5rem;
+    background-color: var(--very-dark-grayish-blue);
+    color: var(--pure-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.125rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px hsla(210, 29%, 84%, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s linear 0.35s;
+    z-index: 10;
+  }
+
+  .card__share.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) scale(1);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s linear 0s;
+  }
+
+  .card__share span,
+  .card__share a {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .card__share.active span {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.15s;
+  }
+
+  .card__share.active a:nth-of-type(1) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.25s;
+  }
+
+  .card__share.active a:nth-of-type(2) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.35s;
+  }
+
+  .card__share.active a:nth-of-type(3) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.45s;
+  }
+
+  .card__share::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%) rotate(45deg);
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    background: var(--very-dark-grayish-blue);
+  }
+
+  .card__share span,
+  .card__share a {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+  }
+
+  .card__share.active span {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.18s; 
+  }
+
+  .card__share.active ~ .card__arrow,
+  .card__arrow.active {
+    background-color: var(--desaturated-dark-blue);
+  }
+
+  .card__share.active ~ .card__arrow .card__arrow-icon path,
+  .card__arrow.active .card__arrow-icon path {
+    fill: var(--pure-white);
+  }
+
+  .card__share.active ~ .card__arrow,
+  .card__arrow.active {
+    background-color: var(--desaturated-dark-blue);
+  }
+
+  .card__share.active ~ .card__arrow .card__arrow-icon path,
+  .card__arrow.active .card__arrow-icon path {
+    fill: var(--pure-white);
+  }
+
+  .card__share .card__arrow { 
+    display: none;
+  }
+}
+  
+
+
+
+
+
+
+  
